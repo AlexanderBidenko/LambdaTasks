@@ -1,3 +1,8 @@
+/*
+All possible options for placing dots between letters.
+For example:
+'abc' --> ['abc', 'ab.c', 'a.bc', 'a.b.c'] 
+*/
 
 function variation(string) {
   let result = [];
