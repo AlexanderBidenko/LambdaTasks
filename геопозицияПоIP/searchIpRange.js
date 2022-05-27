@@ -31,7 +31,7 @@ async function searchIpRange(ip) {
     if (((Number((data[middle].split(','))[0].slice(1,-1))) <= ip) && ((Number((data[middle].split(','))[1].slice(1,-1))) >= ip)) {
             found = true;
             res = data[middle].split(',');
-            return `{'Range':[${res[0].slice(1,-1)}, ${res[1].slice(1,-1)}], Сountry code:${res[2]}, Country: ${res[3]}}`
+            return `{"Range":[${res[0].slice(1,-1)}, ${res[1].slice(1,-1)}], "Сountry code": "${res[2]}", "Country": "${res[3]}"}`
         }
     else if (ip < (Number(((data[middle].split(','))[0].slice(1,-1))))) {
         end = middle - 1;
