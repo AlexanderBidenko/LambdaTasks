@@ -1,3 +1,5 @@
+// Find the First Number in Having a Certain Number of Divisors I
+// 
 // The number 12 is the first number in having six divisors, they are: 1, 2, 3, 4, 6 and 12.
 //  Your challenge for this kata is to find the minimum number that has a certain number of
 //  divisors. For this purpose we have to create the function
@@ -18,6 +20,7 @@
 function getSqrDivisors(n) {
     let Sqr = [];
     let i = 0;
+    
     while ((i * i) <= n) {
         if (n % i === 0) {
             Sqr.push(i)
