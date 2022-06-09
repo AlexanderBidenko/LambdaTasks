@@ -1,12 +1,13 @@
 const express = require("express");
+const bodyParser = require('body-parser')
 const responseFormation = require("./responseFormation.js");
 
 
 const app = express();
 
-const urlencodedParser = express.urlencoded({extended: false});
+const BodyParserJSON = bodyParser.json()
 
-app.post('/', urlencodedParser, function(request, response, next) {
+app.post('/', BodyParserJSON, function(request, response, next) {
   
   try {
     response.send(responseFormation(request.body));
