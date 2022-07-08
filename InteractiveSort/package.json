@@ -1,0 +1,22 @@
+{
+  "name": "interactive_sort",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "bin": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.2.3",
+    "mocha": "^8.3.2",
+    "ts-node": "^9.1.1",
+    "got": "^11.8.2",
+    "@types/node": "^14.14.37"
+  },
+  "devDependencies": {
+
+  }
+}
