@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "target": "es2018",
+    "module": "commonjs",  
+    "moduleResolution": "node",
+  },
+  "files": ["./src/dataAnalytics.ts", "./src/router.ts", "./tests/test.test.ts"]
+}

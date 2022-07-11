@@ -1,7 +1,7 @@
 export class dataAnalytics {
 
 
-    public alphabetSort(data: string[]): void {
+    public alphabetSort(data: string[]): string[] {
         let bufArray: string[] = [];
         for (let i = 0; i < data.length; i++) {
             let elem:string = data[i];
@@ -20,11 +20,11 @@ export class dataAnalytics {
         
             return 0;
         });
-        console.log("Words by name (from A to Z).", result)
+        return result;
     }
 
 
-    public ascendingNumberSort(data:string[]):void {
+    public ascendingNumberSort(data:string[]): number[] {
 
         let bufArray: number[] = [];
         data.forEach(elem => {
@@ -44,11 +44,12 @@ export class dataAnalytics {
         
             return 0;
         })
-        console.log("Show digits from the smallest", result)
+        // console.log("Show digits from the smallest\n", result)
+        return result;
     }
 
 
-    public descendingNumbersSort(data:string[]): void {
+    public descendingNumbersSort(data:string[]): number[] {
 
         let bufArray: number[] = [];
         data.forEach(elem => {
@@ -68,11 +69,12 @@ export class dataAnalytics {
         
             return 0;
         })
-        console.log("3. Show digits from the bigest.", result)
+        // console.log("3. Show digits from the bigest.\n", result)
+        return result;
     }
 
 
-    public quantityOfLetersSort(data):void {
+    public quantityOfLetersSort(data): string[] {
         let bufArray: string[] = [];
         data.forEach(elem => {
             if (isNaN(Number(elem))) {
@@ -91,34 +93,38 @@ export class dataAnalytics {
         
             return 0;
         });
-        console.log("Words by quantity of leters.", result)
+        // console.log("Words by quantity of leters.\n", result)
+        return result;
     }
 
 
-    public findUniqueWords(data):void {
-        let result: string[] = new Array()
+    public findUniqueWords(data): Set<string> {
+        let result: Set<string> = new Set()
         data.forEach(elem => {
             if (isNaN(Number(elem))) {
-                result.push(elem);
+                result.add(elem);
             }
         })
-        console.log("Only unique words", result)
+        // console.log("Only unique words\n", result)
+        return result;
     }
 
 
-    public findUniqueNumbers(data):void {
-        let result: number[] = new Array()
+    public findUniqueNumbers(data): Set<string> {
+        let result: Set<string> = new Set()
         data.forEach(elem => {
             if (!isNaN(Number(elem))) {
-                result.push(elem);
+                result.add(elem);
             }
         })
-        console.log("Only unique numbers.", result)
+        // console.log("Only unique numbers.\n", result)
+        return result
     }
 
 
-    public findUniqueValues(data):void {
-        let result: any[] = new Array(data)
-        console.log("Unique values", result)
+    public findUniqueValues(data): Set<string> {
+        let result: Set<string> = new Set(data)
+        return result;
     }
 }
+

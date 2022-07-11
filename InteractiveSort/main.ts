@@ -2,17 +2,18 @@ import {router} from './src/router'
 
 
 const readline = require('readline');
-const rl = readline.createInterface({
+let rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
 
-function chatingWithUser() {
+export function chatingWithUser() {
 
     rl.question('Hello enter 10 words or digits deviding them in spaces:', function (data) {
         if (data === 'exit') {process.exit(0)}
-        // асинк 
+
+
         data = data.split(" ")
 
         rl.question(`How would you like to sort values: \n
@@ -24,10 +25,11 @@ function chatingWithUser() {
     6. Only unique numbers.
     7. Unique values
         
-    Select(1-7) and press ENTER:`, function (task) {
+    Select (1-7) and press ENTER:`, async function (task) {
         if (task === 'exit') {process.exit(0)}
         else {
-            new router().forwardInitialData(task, data)
+            const result = await new router().routes(task, data)
+            console.log(result)
         }
             chatingWithUser()
         });
