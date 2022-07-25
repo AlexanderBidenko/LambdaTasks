@@ -22,7 +22,7 @@ program
 >>> ts-node app m "Hello world!"`)
   .addArgument(new Argument('[message]'))
   .action((message: string) => {
-    bot.sendMessage(5244236437, message)
+    bot.sendMessage(chatId, message)
   })
 
 program
@@ -33,7 +33,7 @@ program
   .addArgument(new Argument('[path]'))
   .action((path: string) => {
     const stream = fs.createReadStream(`${path}`)
-    bot.sendPhoto(5244236437, stream)
+    bot.sendPhoto(chatId, stream)
   });
 
 
