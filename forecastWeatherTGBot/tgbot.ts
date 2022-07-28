@@ -27,7 +27,18 @@ if ((BOT_TOKEN !== undefined) && (OPEN_WEATHER_API_TOKEN !== undefined)) {
         }})
     
       });
-
+      const menu = new RegExp('Предыдущее меню')
+      bot.onText(menu, async (msg) => {
+        bot.sendMessage(msg.chat.id, '', {
+          reply_to_message_id: msg.message_id,
+          reply_markup: {
+            keyboard: [
+              [{text:'Прогноз погоды Кривой Рог'}],
+              [{text:'Курс Валют'}],        
+            ]
+          }})
+      
+        });
     
       const forecast = new RegExp('Прогноз погоды')
       bot.onText(forecast, async (msg) => {
@@ -37,7 +48,7 @@ if ((BOT_TOKEN !== undefined) && (OPEN_WEATHER_API_TOKEN !== undefined)) {
             keyboard: [
               [{text:'C интервалом 3 часа'}],
               [{text:'C интервалом 6 часа'}],
-              [{text:'Предидущее меню'}]
+              [{text:'Предыдущее меню'}]
             ]
               
           }})
