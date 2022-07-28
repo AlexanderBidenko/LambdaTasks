@@ -1,7 +1,7 @@
 import TelegramBot from 'node-telegram-bot-api';
 import requsteForecast from './weather'
-import 'dotenv/config'
 import dotenv from 'dotenv'
+import 'dotenv/config'
 dotenv.config()
 
 
@@ -13,73 +13,77 @@ if ((BOT_TOKEN !== undefined) && (OPEN_WEATHER_API_TOKEN !== undefined)) {
 
     const bot: TelegramBot = new TelegramBot(BOT_TOKEN , {polling: true})
 
-
-    bot.setMyCommands(
-      [
-      {command: '/start', description: "Погода в Кривом Роге"},
-      {command: '/weather3', description: "Погода с интервалом 3 часа"},
-      {command: '/weather6', description: "Погода с интервалом 6 часа"}
-      ]
-    )
     
     
-    
-    bot.onText(/start/, async(msg) => {
-    
-      // console.log("Пользователь", msg.from?.first_name, msg.from?.last_name, 'отправил сообщение:', msg.text)
-      const chatId = msg.chat.id;
-    
-      const resp = 'Прогноз погоды'
-    
-      return await bot.sendMessage(chatId, resp, {reply_markup: {inline_keyboard: 
-        [
-          [
-            {text: 'weather3', callback_data: `weather3`},
-            {text: 'weather6', callback_data: `weather6`},
+    const start = new RegExp('start')
+    bot.onText(start, async (msg) => {
+      bot.sendMessage(msg.chat.id, 'Добро пожаловать', {
+        reply_to_message_id: msg.message_id,
+        reply_markup: {
+          keyboard: [
+            [{text:'Прогноз погоды Кривой Рог'}],
+            [{text:'Курс Валют'}],        
           ]
-        ]
-      }})
-    })
-
-    bot.on('callback_query', async (msg) => {
-      // console.log(msg)
-      if (msg.data === 'weather3') {
-        // console.log("Пользователь", msg.from?.first_name, msg.from?.last_name, 'погоду с интервалом 3 часа')
-        const resp:string = await requsteForecast(3, OPEN_WEATHER_API_TOKEN)
-        return (await bot.sendMessage(msg.from.id, resp));
-      }
-  
-    if (msg.data === 'weather6') {
-      // console.log("Пользователь", msg.from?.first_name, msg.from?.last_name, 'погоду с интервалом 6 часов')
-    const resp:string = await requsteForecast(6, OPEN_WEATHER_API_TOKEN)
-    return (await bot.sendMessage(msg.from.id, resp));
-      }  
+        }})
     
-      })  
+      });
 
-const weather3 = new RegExp('weather3')
-bot.onText(weather3, async(msg) => {
-  console.log("Пользователь", msg.from?.first_name, msg.from?.last_name, 'отправил сообщение:', msg.text)
-  const chatId = msg.chat.id;
-  const resp:string = await requsteForecast(3, OPEN_WEATHER_API_TOKEN)
+    
+      const forecast = new RegExp('Прогноз погоды')
+      bot.onText(forecast, async (msg) => {
+        return await bot.sendMessage(msg.chat.id, 'Прогноз погоды', {
+          reply_to_message_id: msg.message_id,
+          reply_markup: {
+            keyboard: [
+              [{text:'C интервалом 3 часа'}],
+              [{text:'C интервалом 6 часа'}],
+              [{text:'Предидущее меню'}]
+            ]
+              
+          }})
+      
+        });
+
+        const forecastInterval3 = new RegExp('C интервалом 3 часа')
+        bot.onText(forecastInterval3, async (msg) => {
+          const resp:string = await requsteForecast(3, OPEN_WEATHER_API_TOKEN)
 
 
-  return await bot.sendMessage(chatId, resp);
-});
+          return await bot.sendMessage(msg.chat.id, resp, {
+            reply_to_message_id: msg.message_id,
+            reply_markup: {
+              keyboard: [
+                [{text:'Прогноз погоды Кривой Рог'}],
+                [{text:'Курс Валют'}]                
+              ]
+            }})
+        
+          });
+
+          const forecastInterval6 = new RegExp('C интервалом 6 часа')
+          bot.onText(forecastInterval6, async (msg) => {
+            const resp:string = await requsteForecast(6, OPEN_WEATHER_API_TOKEN)
+  
+  
+            return await bot.sendMessage(msg.chat.id, resp, {
+              reply_to_message_id: msg.message_id,
+              reply_markup: {
+                keyboard: [
+                  [{text:'Прогноз погоды Кривой Рог'}],
+                  [{text:'Курс Валют'}]                
+                ]
+              }})
+          
+            });
+    
+    
+    
 
 
-const weather6 = new RegExp('weather6')
-bot.onText(weather6, async(msg) => {
-  console.log("Пользователь", msg.from?.first_name, msg.from?.last_name, 'отправил сообщение:', msg.text)
-  const chatId = msg.chat.id;
-  const resp:string = await requsteForecast(6, OPEN_WEATHER_API_TOKEN)
 
 
-  return await bot.sendMessage(chatId, resp);
-});
 
-
-  }
+      }
 
   catch(e){
     console.log(e)
