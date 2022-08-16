@@ -1,3 +1,6 @@
-node_modules
-.env
-.package-lock
+server/node_modules
+server/.env
+server/.package-lock
+middleware/node_modules
+middleware/.env
+middleware/.package-lock

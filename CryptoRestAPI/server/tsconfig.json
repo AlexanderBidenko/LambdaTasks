@@ -1,0 +1,11 @@
+{
+    // ...,
+      // these options are overrides used only by ts-node
+      
+      "compilerOptions": {
+        "target": "ESNext",
+        "module": "commonjs",
+        "lib": ["ES2021"]
+
+      }
+}
