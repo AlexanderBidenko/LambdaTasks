@@ -20,8 +20,9 @@ try {
 	const app = express();
 	const port = process.env.PORT || 5000;
 
+
 	app.get("/", (request, response) => {
-		response.send("availyble endpoints: /average_curraency (params: period[30/60/180/360/720/1440], symbol), /market (params: name[])");
+		response.send("availyble endpoints: /average_curraency (params: period[30/60/180/360/720/1440], symbol), /market (params: name[CoinBase, Kucoin, CoinStats, CoinPaprika])");
 	});
 
 	app.get("/average_curraency", async (request, response) => {
@@ -32,6 +33,10 @@ try {
 			// можем посмотреть средние значения для каждого маркета и среднее в целом
 			if ((!symbol) && (!period)) {
 				return response.send(await new currenciesAverage().someCurrencyAverage("AllValues", 30));
+			}
+
+			if ((!symbol) && (period)) {
+				return response.send(await new currenciesAverage().someCurrencyAverage("AllValues", period));
 			}
 
 			// можем выбрать конкретную крипту
@@ -62,5 +67,6 @@ try {
 	app.listen(port, () => console.log(`Running on port ${port}`));
 	
 } catch (e) {
+
 	console.log(e);
 }

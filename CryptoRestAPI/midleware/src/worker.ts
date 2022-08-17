@@ -2,42 +2,39 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const mysql = require("mysql2");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const dotenv = require("dotenv");
+// const dotenv = require("dotenv");
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const dotenvconf = require("dotenv/config");
-dotenv.config({path: ".."});
-dotenvconf;
+// const dotenvconf = require("dotenv/config");
+
+// dotenv.config({path: ".."});
+// dotenvconf;
 
 const date = Date.now();
 
 
 const connection = mysql.createConnection({
-	uri: process.env.connectionURI,
-	// host: process.env.connectionHost,
-	// port: process.env.connectionPort,
+	host: process.env.connectionHost,
 	user: process.env.connectionUser,
 	database: process.env.connectionDB,
 	password: process.env.connectionPassword,
-	connectTimeout: 100000
+	connectTimeout: 100000000
 });
 
-
-async function someCurrencyFromLocalDB(currency, Market, period) {
+async function someCurrencyBack(currency, Market, period) {
 	let res;
-
 	await new Promise((resolve) => {
-		
+		// SELECT * FROM kucoin WHERE time > 1660062120631 AND symbol = "BTC"
 		connection.query(`SELECT * FROM ${Market} WHERE time > ${(Number(date) - (period*60000))} AND symbol = '${currency}'`,
 			function(err, results) {
 				if (err) {
 					console.log(err);
 				}
-
+				// res = results;
 				resolve(res = results);
 			});
 	});
-
 	try {
+
 		let sumOfPricesAtSomeMarket = 0;
 
 		res.forEach(element => {
@@ -46,20 +43,21 @@ async function someCurrencyFromLocalDB(currency, Market, period) {
 			}
 
 		});
-		res = {averagePrice: (sumOfPricesAtSomeMarket/res.length)};
+		// res = {period: period, symbol: currency, averagePrice: (sumOfPricesAtSomeMarket/res.length)}
+		res = {"averagePrice": (sumOfPricesAtSomeMarket/res.length)};
 	} catch (e) {
 
 		console.log(e);
 	}
-	
+	// console.log(res);
 	return res;  
 }
 
-
 async function someCurrencyAverage(currency, period) {
-	const markets = ["coinbase", "coinmarketcap", "coinpaprika", "coinstats", "kucoin"];
+	const markets = ["coinbase", "coinpaprika", "coinstats", "kucoin"];
+	// const markets = ["coinbase", "coinmarketcap", "coinpaprika", "coinstats", "kucoin"];
 
-	let coinmarketcapData;
+	// let coinmarketcapData;
 	let coinpaprikaData;
 	let coinstatsData;
 	let coinbaseData;
@@ -69,36 +67,37 @@ async function someCurrencyAverage(currency, period) {
 	let marketsAveragePrices = [];
 
 	await Promise.all([
-		someCurrencyFromLocalDB(currency, markets[1], period).then(res => {
-			coinmarketcapData = res;
-			if ((res.averagePrice)  && (!isNaN(res.averagePrice))) {
-				marketsAveragePrices.push(Number(res.averagePrice));
-			}
-		}),
-		someCurrencyFromLocalDB(currency, markets[2], period).then(res => {
+		// someCurrencyBack(currency, markets[1], period).then(res => {
+		// 	coinmarketcapData = res;
+		// 	if ((res.averagePrice)  && (!isNaN(res.averagePrice))) {
+		// 		marketsAveragePrices.push(Number(res.averagePrice));
+		// 	}
+		// }),
+		someCurrencyBack(currency, markets[1], period).then(res => {
 			coinpaprikaData = res;
 			if ((res.averagePrice)  && (!isNaN(res.averagePrice))) {
 				marketsAveragePrices.push(Number(res.averagePrice));
 			}
 		}),
-		someCurrencyFromLocalDB(currency, markets[3], period).then(res => {
+		someCurrencyBack(currency, markets[2], period).then(res => {
 			coinstatsData = res;
 			if ((res.averagePrice)  && (!isNaN(res.averagePrice))) {
 				marketsAveragePrices.push(Number(res.averagePrice));
 			}
 		}),
-		someCurrencyFromLocalDB(currency, markets[0], period).then(res => {
+		someCurrencyBack(currency, markets[0], period).then(res => {
 			coinbaseData = res;
 			if ((res.averagePrice)  && (!isNaN(res.averagePrice))) {
 				marketsAveragePrices.push(Number(res.averagePrice));
 			}
 		}),
-		someCurrencyFromLocalDB(currency, markets[4], period).then(res => {
+		someCurrencyBack(currency, markets[3], period).then(res => {
 			kucoinData = res;
 			if ((res.averagePrice)  && (!isNaN(res.averagePrice))) {
 				marketsAveragePrices.push(Number(res.averagePrice));
 			}
 		})]);
+
 
   
 	let average = 0;
@@ -113,10 +112,11 @@ async function someCurrencyAverage(currency, period) {
 		console.log(e);
 	}
 
+	// coinmarketcap: coinmarketcapData.averagePrice,0
     
 	const res = { symbol: currency, 
 		marketsAverage: {
-			coinmarketcap: coinmarketcapData.averagePrice,
+
 			coinpaprika: coinpaprikaData.averagePrice,
 			coinstats: coinstatsData.averagePrice,
 			coinbase: coinbaseData.averagePrice,
@@ -129,18 +129,20 @@ async function someCurrencyAverage(currency, period) {
 }
 
 
-async function startWorker() {
+
+
+async function foo() {
   
 	// eslint-disable-next-line @typescript-eslint/no-var-requires
 	const { workerData, parentPort } = require("worker_threads");
 
 	let res;
-	await new Promise((resolve) => resolve(someCurrencyAverage(workerData[0], workerData[1]))).then(result => {
+	new Promise((resolve) => resolve(someCurrencyAverage(workerData[0], workerData[1]))).then(result => {
 		res = (result);
 		parentPort.postMessage(res);
+		connection.end();
 	});
-	process.exit(0);
 }
 
-startWorker();
+foo();
 
