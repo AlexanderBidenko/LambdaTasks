@@ -2,18 +2,18 @@ const fs = require('fs');
 const readline = require('readline');
 
 
-let mass = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
 function randomArray(array) {
   for (let i = 0; i < array.length; i++) {
   let rand = Math.floor(Math.random()*array.length);
-  temp1 = mass[i];
-  mass[i] = mass[rand];
-  mass[rand] = temp1;
+  temp1 = arr[i];
+  arr[i] = arr[rand];
+  arr[rand] = temp1;
 }
   return array.slice(0, 11);
 }
 
-const randomArr = randomArray(mass);
+const randomArr = randomArray(arr);
 
 async function existInFile() {
 
