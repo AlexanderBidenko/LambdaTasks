@@ -1,7 +1,6 @@
-
 (inputArrWithJSONsObj) => {
 
-    let subAr = inputJSON.sort(function(a, b) {
+    let subAr = inputArrWithJSONsObj.sort(function(a, b) {
       if (a.user.name > b.user.name) {
         return 1;
       }
