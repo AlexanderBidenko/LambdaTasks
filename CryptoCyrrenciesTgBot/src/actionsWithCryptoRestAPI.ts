@@ -1,5 +1,5 @@
 import axios from "axios";
-import os from 'node:os'
+import os from 'node:os';
 
 
 
@@ -50,4 +50,3 @@ export async function favouriteCurrencys(currencys: string[]): Promise<string> {
 
     return hypeCurrenciesAverages
 }
-// hypeCurrency("BTC");

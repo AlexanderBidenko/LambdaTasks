@@ -15,10 +15,10 @@ export class actionsWithDb {
     });
 
 
-    public async selectCurrencys(UserId: number): Promise<any[]> {
+    public async selectCurrencys(userId: number): Promise<any[]> {
         return await new Promise(async (resolve) => {
 
-            const sql = `SELECT * FROM following WHERE UserId = '${UserId}'`;
+            const sql = `SELECT * FROM following WHERE UserId = '${userId}'`;
 
                 this.connection.query(sql, function(err, result) {
                 if(err) console.log(err);
@@ -26,13 +26,13 @@ export class actionsWithDb {
                     
                     resolve(result)
                 } 
-            }) 
-        })
+            });
+        });
         }
 
-    public async  insertCurrency(UserId: number, Currency: string) {
+    public async insertCurrency(userId: number, currency: string) {
         try {
-            const someCoinData = [UserId, Currency];
+            const someCoinData = [userId, currency];
             const sql = "INSERT INTO following(UserId, Currency) VALUES(?, ?)";
             const tryInsert = await new Promise((resolve) => {
                 this.connection.query(sql, someCoinData, function(err, res) {
@@ -55,10 +55,10 @@ export class actionsWithDb {
 
     }
 
-    public async removeCurrency(UserId: number, Currency: string) {
+    public async removeCurrency(userId: number, currency: string) {
         try {
-            const someCoinData = [UserId, Currency];
-            const sql = `DELETE FROM following WHERE UserId=${UserId} AND Currency='${Currency}'`;
+            const someCoinData = [userId, currency];
+            const sql = `DELETE FROM following WHERE UserId=${userId} AND Currency='${currency}'`;
             await new Promise((resolve) => {
                 this.connection.query(sql, someCoinData, function(res, err) {
                     // if(err) console.log(err);
@@ -74,13 +74,4 @@ export class actionsWithDb {
     }
 
 }
-
-
-
-
-
-
-
-
-
 

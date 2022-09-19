@@ -1,19 +1,19 @@
 import TelegramBot from 'node-telegram-bot-api';
-import requsteForecast from './weather'
-import {privateBank}  from './exchangeRate'
-import {monoBank} from './exchangeRate'
-import dotenv from 'dotenv'
-import 'dotenv/config'
-dotenv.config()
+import requsteForecast from './weather';
+import {privateBank}  from './exchangeRate';
+import {monoBank} from './exchangeRate';
+import dotenv from 'dotenv';
+import 'dotenv/config';
+dotenv.config();
 
 
-const BOT_TOKEN = process.env.BOT_TOKEN
-const OPEN_WEATHER_API_TOKEN = process.env.OPEN_WEATHER_API_TOKEN
+const BOT_TOKEN = process.env.BOT_TOKEN;
+const OPEN_WEATHER_API_TOKEN = process.env.OPEN_WEATHER_API_TOKEN;
 
 if ((BOT_TOKEN !== undefined) && (OPEN_WEATHER_API_TOKEN !== undefined)) {
   try {
 
-    const bot: TelegramBot = new TelegramBot(BOT_TOKEN , {polling: true})
+    const bot: TelegramBot = new TelegramBot(BOT_TOKEN , {polling: true});
 
     
     const start = /start/

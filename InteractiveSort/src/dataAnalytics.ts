@@ -31,7 +31,7 @@ export class dataAnalytics {
             if (!isNaN(Number(elem))) {
                 bufArray.push(Number(elem));
             }
-        })
+        });
 
         let result = bufArray.sort(function (a, b) {
             if (a < b) {
@@ -43,8 +43,8 @@ export class dataAnalytics {
             }
         
             return 0;
-        })
-        // console.log("Show digits from the smallest\n", result)
+        });
+
         return result;
     }
 
@@ -56,7 +56,7 @@ export class dataAnalytics {
             if (!isNaN(Number(elem))) {
                 bufArray.push(Number(elem));
             }
-        })
+        });
 
         let result = bufArray.sort(function (a, b) {
             if (a > b) {
@@ -68,8 +68,8 @@ export class dataAnalytics {
             }
         
             return 0;
-        })
-        // console.log("3. Show digits from the bigest.\n", result)
+        });
+
         return result;
     }
 
@@ -80,7 +80,7 @@ export class dataAnalytics {
             if (isNaN(Number(elem))) {
                 bufArray.push(elem);
             }
-        })
+        });
 
         let result = bufArray.sort(function (a, b) {
             if (a.length < b.length) {
@@ -93,7 +93,7 @@ export class dataAnalytics {
         
             return 0;
         });
-        // console.log("Words by quantity of leters.\n", result)
+
         return result;
     }
 
@@ -104,8 +104,8 @@ export class dataAnalytics {
             if (isNaN(Number(elem))) {
                 result.add(elem);
             }
-        })
-        // console.log("Only unique words\n", result)
+        });
+
         return result;
     }
 
@@ -116,9 +116,9 @@ export class dataAnalytics {
             if (!isNaN(Number(elem))) {
                 result.add(elem);
             }
-        })
-        // console.log("Only unique numbers.\n", result)
-        return result
+        });
+
+        return result;
     }
 
 
@@ -127,4 +127,3 @@ export class dataAnalytics {
         return result;
     }
 }
-

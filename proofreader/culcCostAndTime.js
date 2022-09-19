@@ -9,7 +9,7 @@ let culcCostAndTime = function culcCostAndTime(language, symbolCount, mimetype) 
         symbolPerHour = 1333;
         symbolCost = 0.05;
         minCost = 50;
-     } else if (language === ("en")){ 
+     } else if (language === ("en")) {
         symbolPerHour = 333;
         symbolCost = 0.12;
         minCost = 120;

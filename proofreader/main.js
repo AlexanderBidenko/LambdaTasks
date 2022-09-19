@@ -5,14 +5,14 @@ const responseFormation = require("./responseFormation.js");
 
 const app = express();
 
-const BodyParserJSON = bodyParser.json()
+const BodyParserJSON = bodyParser.json();
 
-app.post('/', BodyParserJSON, function(request, response, next) {
+app.post('/', BodyParserJSON, function(request, response) {
   
   try {
     response.send(responseFormation(request.body));
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 
 })

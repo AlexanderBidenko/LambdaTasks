@@ -28,8 +28,7 @@ function chatingWithUser() {
     rl.question('Hello enter 10 words or digits deviding them in spaces:', function (data) {
         if (data === 'exit') {process.exit(0)}
 
-
-        data = data.split(" ")
+        data = data.split(" ");
 
         rl.question(`How would you like to sort values: \n
     1. Words by name (from A to Z).
@@ -42,12 +41,9 @@ function chatingWithUser() {
         
     Select(1-7) and press ENTER:`, function (task) {
         if (task === 'exit') {process.exit(0)}
-        else {
-            // new router().forwardInitialData(task, data)
-        }
-            chatingWithUser()
+            chatingWithUser();
         });
     });
 }
-chatingWithUser()
+chatingWithUser();
 }

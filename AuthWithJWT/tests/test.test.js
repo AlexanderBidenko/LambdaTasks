@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const app = require('../main.js').app;
 
 
-it('if user already exist we say about it', function (done) {
+it('If user already exist we say about it', function (done) {
   request(app)
   .post('/sing_up')
   .send({"email": "«email2»", "password": "«password»"})
@@ -18,7 +18,7 @@ it('if user already exist we say about it', function (done) {
   })
 });
 
-it('if we send request to /login - we will receipting response with some JWT tokens', function (done) {
+it('If we send request to /login - we will receipting response with some JWT tokens', function (done) {
   request(app)
   .post('/login?email=«email2»&password=«password»')
   .expect('Content-Type', /json/)
@@ -34,7 +34,7 @@ it('if we send request to /login - we will receipting response with some JWT tok
 
 
 
-it('if we send request to /refresh - we will take response with some access token', function (done) {
+it('If we send request to /refresh - we will take response with some access token', function (done) {
   request(app)
   .post('/refresh')
   .set('Authorization', `Bearer ${fs.readFileSync(`./tests/refresh_token.txt`)}`)
@@ -48,7 +48,7 @@ it('if we send request to /refresh - we will take response with some access toke
   })
 });
 
-it('if we send request to /me - we will be redirect to user`s page', function (done) {
+it('If we send request to /me - we will be redirect to user`s page', function (done) {
   request(app)
   .get('/me')
   .set('Authorization', `Bearer ${fs.readFileSync(`./tests/access_token.txt`)}`)
@@ -59,7 +59,7 @@ it('if we send request to /me - we will be redirect to user`s page', function (d
   })
 });
 
-it('if we send request to /me0 - we will take response with mock data`', function (done) {
+it('If we send request to /me0 - we will take response with mock data`', function (done) {
   request(app)
   .get('/me0')
   .set('Authorization', `Bearer ${fs.readFileSync(`./tests/access_token.txt`)}`)
@@ -72,7 +72,7 @@ it('if we send request to /me0 - we will take response with mock data`', functio
 });
 
 
-it('if we send request to /me0 after 1 min - we will take response with mock data and the number of requests corresponding to this token', function (done) {
+it('If we send request to /me0 after 1 min - we will take response with mock data and the number of requests corresponding to this token', function (done) {
     new Promise (function(resolve) {
       setTimeout(() => resolve(),60000)
     })

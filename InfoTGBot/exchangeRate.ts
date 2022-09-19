@@ -12,14 +12,14 @@ export const privateBank = async function privateBank(): Promise<string[]> {
 
     let privatBankUSDExchangeRate = `USD покупка: ${PriceToBuyUSD}, продажа: ${PriceToSaleUSD}.`
     let privatBankEURExchangeRate = `EUR покупка: ${PriceToBuyEUR}, продажа: ${PriceToSaleEUR}`
-    return [privatBankUSDExchangeRate, privatBankEURExchangeRate]
+    return [privatBankUSDExchangeRate, privatBankEURExchangeRate];
 
 }
 
 
 
 export const monoBank = async function monoBank(): Promise<string[]> {
-    const timeNow = Date.now()
+    const timeNow = Date.now();
     let checkTime = fs.readFileSync("monoBankRates.txt", "utf8");
     if (Number((checkTime.split(" "))[0]) < (timeNow - 360000)) {
 
@@ -34,6 +34,7 @@ export const monoBank = async function monoBank(): Promise<string[]> {
         const res = [`USD покупка: ${PriceToBuyUSD}, продажа: ${PriceToSaleUSD}.`, `EUR покупка: ${PriceToBuyEUR}, продажа: ${PriceToSaleEUR}`]
         return res;
     }
+
     else {
         const USD = ((checkTime.split(" ")).slice(1,6)).join(' ')
         const EUR = ((checkTime.split(" ")).slice(6,11)).join(" ")

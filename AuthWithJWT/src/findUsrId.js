@@ -5,10 +5,10 @@ const secret = require('../conf.js');
 
 async function findUserId(data) {
   try {
-    const AccessTokenPayload = jwt.decode(data, secret);
+    const accessTokenPayload = jwt.decode(data, secret);
 
-    const AccessTokenJSON = JSON.parse(AccessTokenPayload.data);
-    return AccessTokenJSON.userId;
+    const accessTokenJSON = JSON.parse(accessTokenPayload.data);
+    return accessTokenJSON.userId;
 
   } catch(err) {
     console.log(err);

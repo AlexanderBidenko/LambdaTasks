@@ -5,10 +5,10 @@ const fs = require('fs');
 
 const secret = require('../conf.js')
 
-const uri = "mongodb+srv://admin:admin@cluster0.dvtl6uy.mongodb.net/";
+const uri = "dbURI";
 const client = new MongoClient(uri, { useUnifiedTopology: true}, { useNewUrlParser: true }, { connectTimeoutMS: 30000 }, { keepAlive: 1});
 
-const dbName = 'UsersDb';
+const dbName = 'dbName';
 
 
 async function loginUser(data) {

@@ -10,9 +10,9 @@ import TelegramBot from "node-telegram-bot-api";
 const fs = require('node:fs');
 
 
-// for first running you must to change values of token an chatId
+// for first running you must to change values of token and chatId
 const token: string = 'your_telegram_bot_token';
-const chatId: number = 123456789
+const chatId: number = 123456789;
 const bot: TelegramBot = new TelegramBot(token);
 
 
@@ -22,7 +22,7 @@ program
 >>> ts-node app m "Hello world!"`)
   .addArgument(new Argument('[message]'))
   .action((message: string) => {
-    bot.sendMessage(chatId, message)
+    bot.sendMessage(chatId, message);
   })
 
 program
@@ -32,12 +32,10 @@ program
 `)
   .addArgument(new Argument('[path]'))
   .action((path: string) => {
-    const stream = fs.createReadStream(`${path}`)
-    bot.sendPhoto(chatId, stream)
+    const stream = fs.createReadStream(`${path}`);
+    bot.sendPhoto(chatId, stream);
   });
 
 
 
-program.parse(process.argv)
-
-
+program.parse(process.argv);

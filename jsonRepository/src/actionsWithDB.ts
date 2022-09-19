@@ -8,7 +8,7 @@ export class actinsWithDB {
     uri : string= "mongodb+srv://admin:admin@cluster0.dvtl6uy.mongodb.net/";
     conf: MongoClientOptions = { connectTimeoutMS: 30000,  keepAlive: true}
 
-    client = new MongoClient(this.uri, this.conf)
+    client = new MongoClient(this.uri, this.conf);
 
     dbName = 'JSONDb';
 
@@ -21,12 +21,14 @@ export class actinsWithDB {
       
           await collection.replaceOne({dataName: routeToUsersData}, {dataName: routeToUsersData, data: usersData}, {upsert: true});
           this.client.close();
-          return (JSON.parse(usersData))
+          return (JSON.parse(usersData));
       
         } catch (error) {
-          let message = 'Unknown Error'
-          if (error instanceof Error) message = error.message
-          return ({message})
+          let message = 'Unknown Error';
+          if (error instanceof Error) {
+            message = error.message;
+          }
+          return ({message});
         }      
       }
     
@@ -44,9 +46,11 @@ export class actinsWithDB {
             return usersData.data;
           }
         } catch (error) {
-          let message = 'Unknown Error'
-          if (error instanceof Error) message = error.message
-          return ({message})
+          let message = 'Unknown Error';
+          if (error instanceof Error) {
+            message = error.message;
+          }
+          return ({message});
         }      
       }
 }

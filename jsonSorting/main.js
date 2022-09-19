@@ -30,10 +30,9 @@ let singleReq = function singleReq(url, countError=0) {
     request({
     method: 'GET',
     uri: ('https://jsonbase.com/lambdajson_' + url),
-    //headers: {Range: 'bytes 150-440'}
   },
     (error, response, body) => {
-    if (!error && response.statusCode == 200) {
+    if (!error && response.statusCode === 200) {
       let bool = body.includes('"isDone":true');
       console.log(('https://jsonbase.com/lambdajson_' + url) +
        ': isDone -', bool ? 'True' : 'False');
@@ -42,6 +41,7 @@ let singleReq = function singleReq(url, countError=0) {
     }
     else if (countError < 4) {
       singleReq(url, (countError = countError + 1));
+
     } else {
       resErr++;
       returnControl--;
@@ -51,11 +51,12 @@ let singleReq = function singleReq(url, countError=0) {
     )};
 
 
-async function AllReq() {
+async function allReq() {
     for await (let urlParam of urlList) {
         new Promise(resolve => singleReq(urlParam))
         }
-    
+  
+        
     let control = setInterval(() => {
         if ((resT + resF + resErr) === urlList.length) {
         console.log('Значений True:', resT)
@@ -66,4 +67,4 @@ async function AllReq() {
     };
 
 
-AllReq()
+allReq()

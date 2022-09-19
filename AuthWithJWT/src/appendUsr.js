@@ -1,10 +1,10 @@
 const { MongoClient } = require('mongodb');
 var bcrypt = require('bcryptjs');
 
-const uri = "mongodb+srv://admin:admin@cluster0.dvtl6uy.mongodb.net/";
+const uri = "dbURL";
 const client = new MongoClient(uri, { useUnifiedTopology: true}, { useNewUrlParser: true }, { connectTimeoutMS: 30000 }, { keepAlive: 1});
 
-const dbName = 'UsersDb';
+const dbName = 'dbName';
 
 
 async function appendUser(data) {
@@ -19,10 +19,10 @@ async function appendUser(data) {
       let countUsers = await collection.countDocuments();
       await collection.insertOne({userId: countUsers, user: data.email, password: hashPassword});
       client.close();
-      return 'Registration completed successfully'
+      return 'Registration completed successfully';
     } else {
       client.close();
-      return 'This user is already registered'
+      return 'This user is already registered';
     }
   } catch(err) {
     client.close();

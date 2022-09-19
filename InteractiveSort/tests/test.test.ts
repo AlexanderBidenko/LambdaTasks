@@ -1,10 +1,9 @@
 import got from 'got';
-import {strict as assert} from 'assert'
-import { dataAnalytics } from '../src/dataAnalytics'
+import {strict as assert} from 'assert';
+import { dataAnalytics } from '../src/dataAnalytics';
 const fs = require("fs");
-const os = require("os")
+const os = require("os");
 
-// interactionSimulation('./tests/test1in.txt', './tests/test1out.txt')
 
 const testData1 =  ['Lorem',       'Ipsum',        'is',          'simply',      'dummy', 
 'text',        'of',           'the',         'printing',    'and',   
@@ -24,13 +23,9 @@ const testData1 =  ['Lorem',       'Ipsum',        'is',          'simply',     
 'passages,',   'and',          'more',        'recently',    'with',
 'desktop',     'publishing',   'software',    'like',        'Aldus',
 'PageMaker',   'including',    'versions',    'of',          'Lorem',
-'Ipsum.']
-
-const testData2 = ['1', '1234', '23', '44', '22', '111', '123450', '321', '2345', '5']
-const testData3 = ['a', 'a', 'b', 'b', '1', '2', '1'] 
-
-
-
+'Ipsum.'];
+const testData2 = ['1', '1234', '23', '44', '22', '111', '123450', '321', '2345', '5'];
+const testData3 = ['a', 'a', 'b', 'b', '1', '2', '1'];
 
 
 it("1. Words by name (from A to Z).", async () => {
@@ -54,13 +49,11 @@ it("1. Words by name (from A to Z).", async () => {
             'the',         'the',       'the',         'to',           'took',
             'type',        'type',      'typesetting', 'typesetting,', 'unchanged.',
             'unknown',     'versions',  'was',         'when',         'with',
-            'with']
+            'with'];
     for (let i = 0; i++; i< res.length) {
-        assert(res[i] === trueanswer[i])
+        assert(res[i] === trueanswer[i]);
     }    
 })
-
-
 
 it("2. Show digits from the smallest.", async () => {
     let res = new dataAnalytics().ascendingNumberSort(testData2)
@@ -69,13 +62,11 @@ it("2. Show digits from the smallest.", async () => {
        23,   44,  111,
       321, 1234, 2345,
    123450
-    ]
+    ];
     for (let i = 0; i++; i< res.length) {
-        assert(res[i] === trueanswer[i])
+        assert(res[i] === trueanswer[i]);
     }
-})
-
-
+});
 
 it("3. Show digits from the bigest.", async () => {
     let res = new dataAnalytics().descendingNumbersSort(testData2)
@@ -84,16 +75,14 @@ it("3. Show digits from the bigest.", async () => {
            321,  111,   44,
             23,   22,    5,
              1
-      ]
+      ];
     for (let i = 0; i++; i< res.length) {
-        assert(res[i] === trueanswer[i])
+        assert(res[i] === trueanswer[i]);
     }
-})
-
-
+});
 
 it("4. Words by quantity of leters.", async () => {
-    let res = new dataAnalytics().quantityOfLetersSort(testData1)
+    let res = new dataAnalytics().quantityOfLetersSort(testData1);
     let trueanswer = ['a',            'a',          'is',          'of',          'an',
         'of',           'it',         'to',          'It',          'It',
         'in',           'of',         'of',          'the',         'and',
@@ -113,23 +102,23 @@ it("4. Words by quantity of leters.", async () => {
         'including',    "industry's", 'centuries,',  'electronic',  'unchanged.',
         'containing',   'publishing', 'typesetting', 'essentially', 'popularised',
         'typesetting,'
-      ]
+      ];
     for (let i = 0; i++; i< res.length) {
-        assert(res[i] === trueanswer[i])
+        assert(res[i] === trueanswer[i]);
     }
-})
-
-
+});
 
 it("5. Only unique words.", async () => {
     let res = new dataAnalytics().findUniqueWords(testData3);
-    assert(res.size === 2)
-})
+    assert(res.size === 2);
+});
+
 it("6. Only unique numbers.", async () => {
     let res = new dataAnalytics().findUniqueNumbers(testData3)
-    assert(res.size === 2)    
-})
+    assert(res.size === 2);
+});
+
 it("7. Unique values", async () => {
-    let res = new dataAnalytics().findUniqueValues(testData3)
-    assert(res.size === 4)
-})
+    let res = new dataAnalytics().findUniqueValues(testData3);
+    assert(res.size === 4);
+});

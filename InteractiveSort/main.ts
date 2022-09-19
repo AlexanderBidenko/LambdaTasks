@@ -1,4 +1,4 @@
-import {router} from './src/router'
+import {router} from './src/router';
 
 
 const readline = require('readline');
@@ -14,7 +14,7 @@ export function chatingWithUser() {
         if (data === 'exit') {process.exit(0)}
 
 
-        data = data.split(" ")
+        data = data.split(" ");
 
         rl.question(`How would you like to sort values: \n
     1. Words by name (from A to Z).
@@ -28,13 +28,12 @@ export function chatingWithUser() {
     Select (1-7) and press ENTER:`, async function (task) {
         if (task === 'exit') {process.exit(0)}
         else {
-            const result = await new router().routes(task, data)
-            console.log(result)
+            const result = await new router().routes(task, data);
+            console.log(result);
         }
-            chatingWithUser()
+            chatingWithUser();
         });
     });
 }
 
-
-chatingWithUser()
+chatingWithUser();
