@@ -3,6 +3,8 @@ interface Array<T> {
     multiply(o?: number): number[];
 }
 
+
+
 interface emoji {
     emoji: string,
     sad: boolean
@@ -13,7 +15,10 @@ interface groupedEmoji {
     happy?: emoji[]
 }
 
-
+/**
+ * Multiply every element of array on provided number. 
+ * If no provided - every element of array will be multiplied on 10.
+ */
 Array.prototype.multiply = function multiply (o:number): number[] {
     if (o === undefined) {
         o = 10
@@ -25,7 +30,9 @@ Array.prototype.multiply = function multiply (o:number): number[] {
     return res;
 }
 
-
+/**
+ * Groups emotions by degree of joy.
+ */
 function groupEmoji (emojiArr: emoji[]): groupedEmoji {
     let resSad: emoji[] = []
     let resHappy: emoji[] = []
