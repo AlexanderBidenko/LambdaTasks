@@ -4,7 +4,7 @@ import hello from '@functions/hello';
 import { testing } from '@functions/index';
 
 const serverlessConfiguration: AWS = {
-  service: 'helloname',
+  service: 'imagestorage',
   frameworkVersion: '3',
   plugins: ['serverless-esbuild'],
   provider: {
