@@ -1,10 +1,14 @@
 import type { AWS } from '@serverless/typescript';
 
-import hello from '@functions/hello';
+// import hello from '@functions/hello';
+import { indexpage as index } from '@functions/index';
 import { testing } from '@functions/index';
+import { signin } from '@functions/index';
+import { signout } from '@functions/index';
+
 
 const serverlessConfiguration: AWS = {
-  service: 'imagestorage',
+  service: 'imgStorage',
   frameworkVersion: '3',
   plugins: ['serverless-esbuild'],
   provider: {
@@ -26,8 +30,10 @@ const serverlessConfiguration: AWS = {
     },
   },
  
-  functions: { hello,
-    testing
+  functions: { index,
+    testing,
+    signin,
+    signout
   },
   package: { individually: true },
   custom: {
