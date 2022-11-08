@@ -1,7 +1,6 @@
 export default {
-    type: "object",
-    properties: {
+  type: Buffer,
+  properties: {
 
-    }
-  } as const;
-  
+  }
+} as const;
