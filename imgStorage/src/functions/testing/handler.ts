@@ -4,6 +4,7 @@ import { middyfy } from '@libs/lambda';
 import schema from './schema';
 
 import FormData from "form-data";
+
 import { createPresignedPost } from "@aws-sdk/s3-presigned-post";
 import { s3Client } from "@libs/s3Client";
 
@@ -14,45 +15,42 @@ declare type ContentLengthRangeCondition = ["content-length-range", number, numb
 declare type Conditions = EqualCondition | StartsWithCondition | ContentLengthRangeCondition;
 
 
+
 const Bucket = "";
+const Conditions: Conditions[] = [["starts-with", "$key", ""]];
+const Key = "./filename.jpg";
+const Fields = {
+  acl: "public-read",
+};
 
-
-const Fields = {ACL: "public-read-write"};
-// const Conditions: Conditions[] = [['eq', '$userid', 'test'], ["content-length-range", 0, 10 * 1024]];
-const Conditions: Conditions[] = [["content-length-range", 0, 10 * 1024]];
-
-
-
-
-const testing: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
-  const Key = ``;
-  const { url, fields } = await createPresignedPost(s3Client, {
-    Bucket,
-    Key,
-    Conditions,
-    Fields
+async function Posting(buf) {
+  let { url, fields } = await createPresignedPost(s3Client, {
+      Bucket,
+      Key,
+      Conditions,
+      Fields,
+      Expires: 3600, //Seconds before the presigned post expires. 3600 by default.
     });
 
-    const form = new FormData(event.body);
+    const form = new FormData();
     Object.entries(fields).forEach(([field, value]) => {
       form.append(field, value);
     });
-    let result;
-      result = await new Promise((resolve) => {form.submit(url, (err, res) => {
-      if (res) {
-        resolve(result = res);
-      }
-        resolve(result = err);
-        });
-      })
-      // result = Object.entries(fields)
-        return formatJSONResponse({
-          message: `${result}`
-        });
-      }
+    // form.append('file', buf, { filename : 'document.jpg' });
+    form.append('file', buf);
+    await new Promise(()=>{form.submit(url, () => {})});    
+ 
+}
+
+const testing: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (event) => {
+
+    await Posting(event.body)
+
+    return formatJSONResponse({
+      statusCode: 200,
+      message: `Hi!`
+    });
+  }
 
 
 export const main = middyfy(testing);
-
-
-
